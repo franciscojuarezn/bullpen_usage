@@ -14,7 +14,6 @@ rp_grid_active_pitchers = rp_grid_with_teams.loc[
 
 rp_grid_active_pitchers.reset_index(drop=True, inplace=True)
 
-# Define the team color map
 team_color_map = {
     'MXC': '#19255b',
     'HER': '#fc5000',
@@ -69,7 +68,6 @@ fig = go.Figure(data=[go.Table(
                font=dict(size=12, family='Verdana', color='black'))  
 )])
 
-# Add watermark 
 fig.add_annotation(
     go.layout.Annotation(
         text="@iamfrankjuarez",
@@ -80,7 +78,6 @@ fig.add_annotation(
     )
 )
 
-# Update layout for the figure
 fig.update_layout(
     title=f'Uso del bullpen {team_choice} - Últimos 7 días',
     title_x=0.30,
