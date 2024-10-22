@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 
-# Load the data
 rp_grid_with_teams = pd.read_csv('rp_grid_active_pitchers_sorted.csv')
 
 date_columns = rp_grid_with_teams.columns[2:-1]
@@ -12,7 +11,6 @@ rp_grid_active_pitchers = rp_grid_with_teams.loc[
     ~(rp_grid_with_teams[date_columns_reversed] == 0).all(axis=1),
     ['team_name', 'player_name'] + list(date_columns_reversed) + ['Lanzamientos Totales']
 ]
-
 
 rp_grid_active_pitchers.reset_index(drop=True, inplace=True)
 
