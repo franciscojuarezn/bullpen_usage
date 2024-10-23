@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 
-# Load the data
 rp_grid_with_teams = pd.read_csv('rp_grid_active_pitchers_sorted.csv')
 
 date_columns = rp_grid_with_teams.columns[2:-1]
@@ -13,10 +12,8 @@ rp_grid_active_pitchers = rp_grid_with_teams.loc[
     ['team_name', 'player_name'] + list(date_columns_reversed) + ['Lanzamientos Totales']
 ]
 
-
 rp_grid_active_pitchers.reset_index(drop=True, inplace=True)
 
-# Define the team color map
 team_color_map = {
     'MXC': '#19255b',
     'HER': '#fc5000',
@@ -71,7 +68,6 @@ fig = go.Figure(data=[go.Table(
                font=dict(size=12, family='Verdana', color='black'))  
 )])
 
-# Add watermark 
 fig.add_annotation(
     go.layout.Annotation(
         text="@iamfrankjuarez",
@@ -82,7 +78,6 @@ fig.add_annotation(
     )
 )
 
-# Update layout for the figure
 fig.update_layout(
     title=f'Uso del bullpen {team_choice} - Últimos 7 días',
     title_x=0.30,
