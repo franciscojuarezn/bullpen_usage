@@ -2,24 +2,20 @@ import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 
-# Load the CSV file
 rp_grid_with_teams = pd.read_csv('rp_grid_active_pitchers_sorted.csv')
 
-# Reverse the date columns and extract the last 7 dates
 date_columns = rp_grid_with_teams.columns[2:-1]
 date_columns_reversed = date_columns[::-1]
 last_7_dates = date_columns_reversed[:7]
 
-# Filter the data to include only rows where there are active pitches in the last 7 dates
 rp_grid_active_pitchers = rp_grid_with_teams.loc[
     ~(rp_grid_with_teams[last_7_dates] == 0).all(axis=1),
     ['team_name', 'player_name'] + list(last_7_dates) + ['Lanzamientos Totales']
 ]
 
-# Reset the index for the filtered dataframe
+
 rp_grid_active_pitchers.reset_index(drop=True, inplace=True)
 
-# Define team colors
 team_color_map = {
     'MXC': '#19255b',
     'HER': '#fc5000',
@@ -33,22 +29,20 @@ team_color_map = {
     'GSV': '#85a8e2',
 }
 
-# Select a team
 team_choice = st.selectbox('Selecciona un equipo:', rp_grid_active_pitchers['team_name'].unique())
 
-# Filter the data for the selected team
 team_data = rp_grid_active_pitchers[rp_grid_active_pitchers['team_name'] == team_choice]
 
-# Remove columns with only zeros for the selected team
+
 team_data = team_data.loc[:, (team_data != 0).any(axis=0)]
 
-# Get the date columns for the selected team after filtering
+
 date_columns_team = team_data.columns[2:-1]
 
-# Define headers for the table
+
 headers = ['RP'] + [str(col) for col in date_columns_team] + ['Lanzamientos Totales']
 
-# Function to format non-zero values in bold
+
 def format_cells_for_bold(team_data, columns):
     formatted_cells = []
     for col in columns:
@@ -61,13 +55,12 @@ def format_cells_for_bold(team_data, columns):
         formatted_cells.append(formatted_column)
     return formatted_cells
 
-# Prepare the cell values for the table
+
 cells = [team_data['player_name']] + format_cells_for_bold(team_data, date_columns_team) + [team_data['Lanzamientos Totales']]
 
-# Get the team color, default to white if not found
+
 team_color = team_color_map.get(team_choice, '#ffffff')
 
-# Create the table using Plotly
 fig = go.Figure(data=[go.Table(
     header=dict(values=headers, fill_color=team_color, align='center',
                 font=dict(size=12, color='beige')),
@@ -75,7 +68,7 @@ fig = go.Figure(data=[go.Table(
                font=dict(size=12, family='Verdana', color='black'))  
 )])
 
-# Add a footer annotation
+
 fig.add_annotation(
     go.layout.Annotation(
         text="@iamfrankjuarez",
@@ -86,7 +79,6 @@ fig.add_annotation(
     )
 )
 
-# Update layout of the table
 fig.update_layout(
     title=f'Uso del bullpen {team_choice} - Últimos 7 días',
     title_x=0.30,
@@ -96,5 +88,4 @@ fig.update_layout(
     margin=dict(l=5, r=5, t=30, b=5)
 )
 
-# Display the table in Streamlit
 st.plotly_chart(fig)
