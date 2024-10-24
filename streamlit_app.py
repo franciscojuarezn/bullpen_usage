@@ -2,8 +2,8 @@ import streamlit as st
 import pandas as pd 
 import plotly.graph_objects as go
 
-# rp_grid_with_teams = pd.read_csv('rp_grid_active_pitchers_sorted.csv')
-rp_grid_with_teams = pd.read_csv('rp_pivot_merged.csv')
+rp_grid_with_teams = pd.read_csv('rp_grid_active_pitchers_sorted.csv')
+# rp_grid_with_teams = pd.read_csv('rp_pivot_merged.csv')
 
 date_columns = rp_grid_with_teams.columns[2:-1]
 date_columns_reversed = date_columns[::-1]
