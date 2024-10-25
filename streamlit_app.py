@@ -80,7 +80,7 @@ def extract_total_pitches(cell_value):
 team_data['Lanzamientos Totales'] = team_data[date_columns_team].apply(lambda row: sum(extract_total_pitches(x) for x in row), axis=1)
 
 # Manually update 'Lanzamientos Totales' for Denny Román
-team_data.loc[team_data['player_name'] == 'Denny Roman', 'Lanzamientos Totales'] = 37
+team_data.loc[team_data['player_name'] == 'Denny Roman', 'Lanzamientos Totales'] = 17
 
 # Sort the players by Lanzamientos Totales in descending order
 team_data = team_data.sort_values(by='Lanzamientos Totales', ascending=False)
