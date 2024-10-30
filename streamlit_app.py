@@ -64,7 +64,7 @@ def extract_total_pitches(cell_value):
 
 team_data['Lanzamientos Totales'] = team_data[date_columns_team].apply(lambda row: sum(extract_total_pitches(x) for x in row), axis=1)
 
-team_data.loc[team_data['player_name'] == 'Denny Roman', 'Lanzamientos Totales'] = 17
+# team_data.loc[team_data['player_name'] == 'Denny Roman', 'Lanzamientos Totales'] = 17
 
 team_data = team_data.sort_values(by='Lanzamientos Totales', ascending=False)
 
